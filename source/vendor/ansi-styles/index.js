@@ -226,7 +226,9 @@ function assembleStyles() {
 					blue = (remainder % 6) / 5;
 				}
 
-				const value = Math.max(red, green, blue) * 2;
+				// Match color-convert: brightness buckets via Math.round(max*2),
+				// so near-white greyscale (232–255) can reach bright white (97).
+				const value = Math.round(Math.max(red, green, blue) * 2);
 
 				if (value === 0) {
 					return 30;
