@@ -226,7 +226,10 @@ function assembleStyles() {
 					blue = (remainder % 6) / 5;
 				}
 
-				const value = Math.max(red, green, blue) * 2;
+				// Round like color-convert rgb.ansi16 so near-white grayscale (232-255)
+				// can reach bright white (97). Without rounding, max ramp channel is
+				// 238/255 and value never equals 2.
+				const value = Math.round(Math.max(red, green, blue) * 2);
 
 				if (value === 0) {
 					return 30;
